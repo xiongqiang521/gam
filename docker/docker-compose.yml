@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  gam-redis:
+    container_name: gam-redis
+    image: redis:6.0.6
+    restart: always
+    ports:
+      - 6379:6379
+    privileged: true
+    command: redis-server /etc/redis/redis.conf --appendonly yes
+    volumes:
+      - /project/gam/redis/data:/data
+      - /project/gam/redis/conf/redis.conf:/etc/redis/redis.conf
+    networks:
+      - gam
+  rabbitmq:
+    container_name: gam-rabbitmq
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - gam
+
+networks:
+  gam:
+    driver: bridge

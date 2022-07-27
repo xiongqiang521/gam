@@ -3,6 +3,11 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### 配置文件包含敏感信息
+/**/src/main/resources/*.properties
+/**/src/main/resources/*.yml
+/**/src/main/resources/*.ymal
+
 ### IntelliJ IDEA ###
 .idea/
 *.iws
