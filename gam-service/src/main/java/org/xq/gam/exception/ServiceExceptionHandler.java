@@ -23,7 +23,7 @@ public class ServiceExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<ExceptionSpecification> exceptionHandler(Exception e) {
-        ExceptionEnum error = ExceptionEnum.PARAMETER_ERROR;
+        ExceptionEnum error = ExceptionEnum.SERVICE_ERROR;
         return ResponseEntity.status(error.getHttpStatus()).body(error);
     }
 

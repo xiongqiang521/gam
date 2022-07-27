@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
  * 2021/10/4 20:38
  */
 public enum ExceptionEnum implements ExceptionSpecification {
+    SERVICE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "E10001", "Internal Server Error."),
     PARAMETER_ERROR(HttpStatus.BAD_REQUEST, "E10002", "parameter error."),
 
     RESOURCE_NOT_FIND(HttpStatus.BAD_REQUEST, "E10003", "resource not find."),
