@@ -2,18 +2,17 @@ spring:
   r2dbc:
     username: gam_user
     password: xxx@123123
-    url: r2dbc:mysql://${host.mysql}:3306/gam_db?ssl=false
+    url: r2dbc:mysql://${MYSQL_HOST}:3306/gam_db?ssl=false
   rabbitmq:
-    host: ${host.rabbitmq}
+    host: ${RABBITMQ_HOST}
     port: 5672
     username: guest
     password: guest
   redis:
-    host: ${host.redis}
+    host: ${REDIS_HOST}
+    password: 12345678
   cloud:
     gateway:
-      redis-route-definition-repository:
-        enabled: false
-  config:
-    activate:
-      on-profile: ${gam.action.profile:local}
+      discovery:
+        locator:
+          enabled: false

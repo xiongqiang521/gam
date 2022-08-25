@@ -7,6 +7,9 @@ package org.xq.gam.api.domain;
  * 2022/7/26 18:16
  */
 public record DomainEntity(
-
+        Long id,
+        String name,
+        String type,
+        String describe
 ) {
 }
