@@ -1,0 +1,23 @@
+POST http://localhost:8080/manager/client
+Content-Type: application/json
+
+{
+  "uuid": 12312123,
+  "ip": "127.0.0.1",
+  "name": "123",
+  "type": "1",
+  "service": "3",
+  "describe": "123",
+  "apis": [
+    {
+      "name": "1",
+      "type": "1",
+      "service": "1",
+      "describe": "1"
+    }
+  ]
+}
+
+
+###
+GET http://localhost:8080/manager/client

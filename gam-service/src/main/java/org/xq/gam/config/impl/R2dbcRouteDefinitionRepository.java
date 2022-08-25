@@ -1,4 +1,4 @@
-package org.xq.gam.config;
+package org.xq.gam.config.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.route.RouteDefinition;

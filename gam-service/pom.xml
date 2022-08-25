@@ -19,6 +19,17 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.xq</groupId>
+            <artifactId>gam-api</artifactId>
+            <version>${version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.3</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -76,7 +87,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
                 <configuration>
+                    <finalName>${artifactId}</finalName>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
@@ -84,7 +97,95 @@
                         </exclude>
                     </excludes>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>repackage</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
+            <!--使用docker-maven-plugin插件-->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.2</version>
+                <!--将插件绑定在某个phase执行-->
+                <executions>
+                    <execution>
+                        <id>build-image</id>
+                        <!--用户只需执行mvn package ，就会自动执行mvn docker:build-->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!--指定生成的镜像名-->
+                    <imageName>gam/${project.artifactId}</imageName>
+                    <!--指定标签-->
+                    <imageTags>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                    <!-- 指定 Dockerfile 路径-->
+                    <dockerDirectory>${project.basedir}</dockerDirectory>
+                    <!--指定远程 docker api地址-->
+                    <dockerHost>https://119.29.40.107:2376</dockerHost>
+                    <dockerCertPath>C:\Users\13797\Documents\docker-cert</dockerCertPath>
+                    <!-- 这里是复制 jar 包到 docker 容器指定目录配置 -->
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <!--jar 包所在的路径  此处配置的 即对应 target 目录-->
+                            <directory>${project.build.directory}</directory>
+                            <!-- 需要包含的 jar包 ，这里对应的是 Dockerfile中添加的文件名　-->
+                            <include>${artifactId}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.shalousun</groupId>
+                <artifactId>smart-doc-maven-plugin</artifactId>
+                <version>2.2.9</version>
+                <configuration>
+                    <!--指定生成文档的使用的配置文件,配置文件放在自己的项目中-->
+                    <configFile>./src/main/resources/smart-doc.json</configFile>
+                    <!--指定项目名称-->
+                    <projectName>${artifactId}</projectName>
+                    <!--smart-doc实现自动分析依赖树加载第三方依赖的源码，如果一些框架依赖库加载不到导致报错，这时请使用excludes排除掉-->
+                    <excludes>
+                        <!--格式为：groupId:artifactId;参考如下-->
+                        <!--也可以支持正则式如：com.alibaba:.* -->
+                        <exclude>com.alibaba:fastjson</exclude>
+                    </excludes>
+                    <!--includes配置用于配置加载外部依赖源码,配置后插件会按照配置项加载外部源代码而不是自动加载所有，因此使用时需要注意-->
+                    <!--smart-doc能自动分析依赖树加载所有依赖源码，原则上会影响文档构建效率，因此你可以使用includes来让插件加载你配置的组件-->
+                    <includes>
+                        <!--格式为：groupId:artifactId;参考如下-->
+                        <!--也可以支持正则式如：com.alibaba:.* -->
+                        <!--                        <include>com.alibaba:fastjson</include>-->
+                        <!-- 如果配置了includes的情况下， 使用了mybatis-plus的分页需要include所使用的源码包 -->
+                        <!--                        <include>com.baomidou:mybatis-plus-extension</include>-->
+                        <!-- 如果配置了includes的情况下， 使用了jpa的分页需要include所使用的源码包 -->
+                        <include>org.springframework.data:spring-data-commons</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <!--如果不需要在执行编译时启动smart-doc，则将phase注释掉-->
+                        <phase>compile</phase>
+                        <goals>
+                            <!--smart-doc提供了html、openapi、markdown等goal，可按需配置-->
+                            <goal>openapi</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
