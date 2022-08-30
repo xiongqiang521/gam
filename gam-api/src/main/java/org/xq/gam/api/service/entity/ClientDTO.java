@@ -75,4 +75,17 @@ public final class ClientDTO implements Serializable {
     public void setApis(List<ClientApiDTO> apis) {
         this.apis = apis;
     }
+
+    @Override
+    public String toString() {
+        return "ClientDTO{" +
+                "uuid=" + uuid +
+                ", ip=" + ip +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", service='" + service + '\'' +
+                ", describe='" + describe + '\'' +
+                ", apis=" + apis +
+                '}';
+    }
 }

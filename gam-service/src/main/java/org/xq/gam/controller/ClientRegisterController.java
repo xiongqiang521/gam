@@ -9,7 +9,7 @@ import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.xq.gam.api.service.entity.ClientDTO;
 import org.xq.gam.convertor.ClientConvertor;
-import org.xq.gam.envet.ClientRemoteEvent;
+import org.xq.gam.event.ClientRemoteEvent;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;

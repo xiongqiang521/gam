@@ -1,3 +1,5 @@
+server:
+  port: 8080
 spring:
   r2dbc:
     username: gam_user
@@ -12,6 +14,22 @@ spring:
     host: ${REDIS_HOST}
     password: 12345678
   cloud:
+    function:
+      definition: consumerClient;routeRefresh
+    stream:
+      bindings:
+        # 客户端事件
+        consumerClient-in-0:
+          destination: client-topic
+        consumerClient-out-0:
+          destination: client-topic
+
+        # 路由刷新事件
+        routeRefresh-in-0:
+          destination: route-refresh
+        routeRefresh-out-0:
+          destination: route-refresh
+
     gateway:
       discovery:
         locator:

@@ -1,4 +1,4 @@
-POST http://localhost:8080/manager/client
+POST {{gam-service}}/manager/client
 Content-Type: application/json
 
 {
