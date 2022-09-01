@@ -1,4 +1,18 @@
+server:
+  port: 8080
 spring:
+  flyway:
+    # 是否启用flyway
+    enabled: true
+    # 编码格式，默认UTF-8
+    encoding: UTF-8
+    # 迁移sql脚本文件存放路径，默认db/migration
+    locations: classpath:db/migration
+    # 迁移sql脚本文件名称的前缀，默认V
+    sql-migration-prefix: V
+    # 迁移sql脚本文件名称的分隔符，默认2个下划线__
+    sql-migration-separator: __
+    baseline-on-migrate: true
   r2dbc:
     username: gam_user
     password: xxx@123123
@@ -12,6 +26,22 @@ spring:
     host: ${REDIS_HOST}
     password: 12345678
   cloud:
+    function:
+      definition: consumerClient;routeRefresh
+    stream:
+      bindings:
+        # 客户端事件
+        consumerClient-in-0:
+          destination: client-topic
+        consumerClient-out-0:
+          destination: client-topic
+
+        # 路由刷新事件
+        routeRefresh-in-0:
+          destination: route-refresh
+        routeRefresh-out-0:
+          destination: route-refresh
+
     gateway:
       discovery:
         locator:

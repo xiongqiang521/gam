@@ -20,6 +20,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>2.7.2</spring.boot.version>
         <spring.cloud.version>2021.0.3</spring.cloud.version>
+
+        <!-- flyway-core 8+ 版本不支持mysql5.7 -->
+        <flyway.core.version>7.15.0</flyway.core.version>
     </properties>
 
     <dependencyManagement>

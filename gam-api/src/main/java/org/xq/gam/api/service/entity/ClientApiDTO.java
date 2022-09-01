@@ -45,4 +45,14 @@ public final class ClientApiDTO implements Serializable {
     public void setDescribe(String describe) {
         this.describe = describe;
     }
+
+    @Override
+    public String toString() {
+        return "ClientApiDTO{" +
+                "name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", service='" + service + '\'' +
+                ", describe='" + describe + '\'' +
+                '}';
+    }
 }

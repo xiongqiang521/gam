@@ -3,10 +3,10 @@ FROM openjdk:17-alpine
 EXPOSE 8080
 VOLUME /tmp
 
-ENV RABBITMQ_HOST=local
-ENV REDIS_HOST=local
+ENV RABBITMQ_HOST=localhost
+ENV REDIS_HOST=localhost
 ENV MYSQL_HOST=124.71.239.81
 
-COPY ./target/gam-service.jar /gam/gam-service.jar
+COPY ../gam-service/target/gam-service.jar /gam/gam-service.jar
 
 ENTRYPOINT ["java","-jar","gam-service.jar"]

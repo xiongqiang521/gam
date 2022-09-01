@@ -17,20 +17,20 @@ import java.time.format.DateTimeFormatter;
  */
 @Configuration
 public class JacksonConfiguration {
-    private static final String pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-    private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(pattern);
+    private static final String TIME_PATTERN = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_PATTERN);
 
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
 
         return builder -> {
-            builder.dateFormat(new SimpleDateFormat(pattern));
             builder.serializationInclusion(JsonInclude.Include.ALWAYS);
             builder.failOnEmptyBeans(false);
             builder.failOnUnknownProperties(false);
 
-            builder.serializerByType(LocalDateTime.class, new LocalDateTimeSerializer(timeFormatter));
-            builder.deserializerByType(LocalDateTime.class, new LocalDateTimeDeserializer(timeFormatter));
+            builder.dateFormat(new SimpleDateFormat(TIME_PATTERN));
+            builder.serializerByType(LocalDateTime.class, new LocalDateTimeSerializer(TIME_FORMATTER));
+            builder.deserializerByType(LocalDateTime.class, new LocalDateTimeDeserializer(TIME_FORMATTER));
         };
     }
 }
