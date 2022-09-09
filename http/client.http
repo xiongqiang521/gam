@@ -2,18 +2,22 @@ POST {{gam-service}}/manager/client
 Content-Type: application/json
 
 {
-  "uuid": 12312123,
-  "ip": "127.0.0.1",
-  "name": "123",
-  "type": "1",
-  "service": "3",
-  "describe": "123",
+  "uuid": 0,
+  "ip": {
+    "canonicalHostName": "String"
+  },
+  "name": "String",
+  "type": "String",
+  "service": "String",
+  "describe": "String",
   "apis": [
     {
-      "name": "1",
-      "type": "1",
-      "service": "1",
-      "describe": "1"
+      "name": "",
+      "path": "",
+      "method": "",
+      "service": "",
+      "serviceAddress": "",
+      "describe": ""
     }
   ]
 }

@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
+ * jackson 配置类
+ *
  * @author xiognqiang
  * 2022/8/25 11:35
  */

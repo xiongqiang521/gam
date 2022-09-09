@@ -7,6 +7,7 @@ import javax.validation.ValidationException;
 /**
  * 校验器接口
  *
+ * @param <E> 待校验的数据实体
  * @author xiognqiang
  * 2022/8/22 14:11
  */

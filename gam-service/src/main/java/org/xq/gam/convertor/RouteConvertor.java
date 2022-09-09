@@ -20,38 +20,31 @@ import java.util.Map;
  */
 public class RouteConvertor {
 
-    private static final TypeReference<List<PredicateDefinition>> PREDICATE_DEFINITION_LIST_TYPE
-            = new TypeReference<List<PredicateDefinition>>() {
+    private static final TypeReference<List<PredicateDefinition>> PREDICATE_DEFINITION_LIST_TYPE =
+            new TypeReference<List<PredicateDefinition>>() {
     };
     private static final TypeReference<List<FilterDefinition>> FILTER_DEFINITION_LIST_TYPE =
             new TypeReference<List<FilterDefinition>>() {
-            };
+    };
     private static final TypeReference<Map<String, Object>> METADATA_MAP_TYPE =
             new TypeReference<Map<String, Object>>() {
-            };
+    };
 
     public static RouteDefinition convertRouteDefinition(RouteDefinitionEntity entity) {
         RouteDefinition routeDefinition = new RouteDefinition();
         routeDefinition.setId(entity.id());
         routeDefinition.setOrder(entity.order());
         routeDefinition.setUri(URI.create(entity.uri()));
-        routeDefinition.setPredicates(JsonUtil.string2Obj(entity.predicates(),
-                PREDICATE_DEFINITION_LIST_TYPE));
-        routeDefinition.setFilters(
-                JsonUtil.string2Obj(entity.filters(), FILTER_DEFINITION_LIST_TYPE));
+        routeDefinition.setPredicates(JsonUtil.string2Obj(entity.predicates(), PREDICATE_DEFINITION_LIST_TYPE));
+        routeDefinition.setFilters(JsonUtil.string2Obj(entity.filters(), FILTER_DEFINITION_LIST_TYPE));
         routeDefinition.setMetadata(JsonUtil.string2Obj(entity.metadata(), METADATA_MAP_TYPE));
         return routeDefinition;
     }
 
     public static RouteDefinitionEntity convertRouteDefinitionEntity(RouteDefinition routeDefinition) {
-        return new RouteDefinitionEntity(
-                routeDefinition.getId(),
-                routeDefinition.getUri().toString(),
-                JsonUtil.obj2String(routeDefinition.getPredicates()),
-                JsonUtil.obj2String(routeDefinition.getFilters()),
-                JsonUtil.obj2String(routeDefinition.getMetadata()),
-                routeDefinition.getOrder()
-        );
+        return new RouteDefinitionEntity(routeDefinition.getId(), routeDefinition.getUri().toString(),
+                JsonUtil.obj2String(routeDefinition.getPredicates()), JsonUtil.obj2String(routeDefinition.getFilters()),
+                JsonUtil.obj2String(routeDefinition.getMetadata()), routeDefinition.getOrder());
 
     }
 

@@ -16,8 +16,7 @@ public enum ExceptionEnum implements ExceptionSpecification {
 
     RESOURCE_NOT_FIND(HttpStatus.BAD_REQUEST, "E10003", "resource not find."),
     REQUEST_TOKEN_ERROR(HttpStatus.BAD_REQUEST, "E10004", "The token of request is field. "),
-    USERNAME_PASSWORD_NOT_MATCH(HttpStatus.BAD_REQUEST, "E10005", "username or password does not match. "),
-    ;
+    USERNAME_PASSWORD_NOT_MATCH(HttpStatus.BAD_REQUEST, "E10005", "username or password does not match. ");
 
     private final HttpStatus status;
     private final String code;

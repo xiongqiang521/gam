@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * 数据库配置
+ *
  * @author xiognqiang
  * 2022/8/30 16:45
  */

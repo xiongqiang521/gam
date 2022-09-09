@@ -4,7 +4,16 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 /**
+ *
+ /**
  * 路由规则实体类
+ *
+ * @param id
+ * @param uri
+ * @param predicates
+ * @param filters
+ * @param metadata
+ * @param order
  *
  * @author xiognqiang
  * 2022/7/27 10:46

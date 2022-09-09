@@ -18,28 +18,28 @@ import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS
 public class JsonUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonUtil.class);
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     static {
         //对象的所有字段全部列入
-        objectMapper.setSerializationInclusion(JsonInclude.Include.ALWAYS);
+        MAPPER.setSerializationInclusion(JsonInclude.Include.ALWAYS);
 
         //取消默认转换timestamps形式
-        objectMapper.configure(WRITE_DATES_AS_TIMESTAMPS, false);
+        MAPPER.configure(WRITE_DATES_AS_TIMESTAMPS, false);
 
         //忽略空Bean转json的错误
-        objectMapper.configure(FAIL_ON_EMPTY_BEANS, false);
+        MAPPER.configure(FAIL_ON_EMPTY_BEANS, false);
 
         //所有的日期格式都统一为以下的样式，即yyyy-MM-dd HH:mm:ss
-        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'"));
+        MAPPER.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'"));
 
         //忽略在json字符串中存在，但是在java对象中不存在对应属性的情况。防止错误
-        objectMapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
+        MAPPER.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
     public static boolean isJSON(String str) {
         try {
-            objectMapper.readTree(str);
+            MAPPER.readTree(str);
             return true;
         } catch (JsonProcessingException e) {
             // ignore JsonProcessingException
@@ -48,16 +48,14 @@ public class JsonUtil {
     }
 
     /**
-     * @Description: 对象转字符串
-     * @Auther: GALAace
-     * @Date: 2019/6/21 23:15
+     * 对象转字符串
      */
     public static <T> String obj2String(T obj) {
         if (obj == null) {
             return null;
         }
         try {
-            return obj instanceof String ? (String) obj : objectMapper.writeValueAsString(obj);
+            return obj instanceof String ? (String) obj : MAPPER.writeValueAsString(obj);
         } catch (Exception e) {
             LOGGER.warn("Parse Object to String error", e);
             return null;
@@ -65,16 +63,14 @@ public class JsonUtil {
     }
 
     /**
-     * @Description: 对象转的字符串（格式化后）
-     * @Auther: GALAace
-     * @Date: 2019/6/21 23:15
+     * 对象转的字符串（格式化后）
      */
     public static <T> String obj2StringPretty(T obj) {
         if (obj == null) {
             return null;
         }
         try {
-            return obj instanceof String ? (String) obj : objectMapper.writerWithDefaultPrettyPrinter()
+            return obj instanceof String ? (String) obj : MAPPER.writerWithDefaultPrettyPrinter()
                     .writeValueAsString(obj);
         } catch (Exception e) {
             LOGGER.error("Parse Object to String error", e);
@@ -83,9 +79,7 @@ public class JsonUtil {
     }
 
     /**
-     * @Description: 字符串转对象
-     * @Auther: GALAace
-     * @Date: 2019/6/21 23:17
+     * 字符串转对象
      */
     public static <T> T string2Obj(String str, Class<T> clazz) {
         if (!StringUtils.hasText(str) || clazz == null) {
@@ -93,7 +87,7 @@ public class JsonUtil {
         }
 
         try {
-            return objectMapper.readValue(str, clazz);
+            return MAPPER.readValue(str, clazz);
         } catch (Exception e) {
             LOGGER.error("Parse String to Object error", e);
             return null;
@@ -101,16 +95,14 @@ public class JsonUtil {
     }
 
     /**
-     * @Description: 字符串转复杂对象（List，Map，Set等）
-     * @Auther: GALAace
-     * @Date: 2019/6/22 0:20
+     * 字符串转复杂对象（List，Map，Set等）
      */
     public static <T> T string2Obj(String str, TypeReference<T> typeReference) {
         if (!StringUtils.hasText(str) || typeReference == null) {
             return null;
         }
         try {
-            return objectMapper.readValue(str, typeReference);
+            return MAPPER.readValue(str, typeReference);
         } catch (Exception e) {
             LOGGER.error("Parse String to Object error", e);
             return null;
@@ -118,14 +110,12 @@ public class JsonUtil {
     }
 
     /**
-     * @Description: 字符串转复杂对象（可变长）
-     * @Auther: GALAace
-     * @Date: 2019/6/22 0:21
+     * 字符串转复杂对象（可变长）
      */
     public static <T> T string2Obj(String str, Class<?> collectionClass, Class<?>... elementClasses) {
-        JavaType javaType = objectMapper.getTypeFactory().constructParametricType(collectionClass, elementClasses);
+        JavaType javaType = MAPPER.getTypeFactory().constructParametricType(collectionClass, elementClasses);
         try {
-            return objectMapper.readValue(str, javaType);
+            return MAPPER.readValue(str, javaType);
         } catch (Exception e) {
             LOGGER.error("Parse String to Object error", e);
             return null;

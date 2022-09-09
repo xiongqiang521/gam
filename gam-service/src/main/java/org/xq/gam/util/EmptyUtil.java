@@ -16,7 +16,7 @@ import java.util.function.Function;
  * @version v0.0.1
  * @date 2021/10/4 20:22
  */
-public class EmptyUtil {
+public final class EmptyUtil {
     private EmptyUtil() {
         throw new AssertionError();
     }
@@ -39,25 +39,29 @@ public class EmptyUtil {
         }
     }
 
-    public static boolean notEmpty(Object o) {
-        return !isEmpty(o);
-    }
 
     public static void isEmpty(ExceptionEnum exceptionEnum, Object... objects) {
         for (Object object : objects) {
-            if (isEmpty(object))
+            if (isEmpty(object)) {
                 throw new ServiceException(exceptionEnum);
+            }
         }
     }
 
     public static void isEmpty(Object o, ExceptionEnum exceptionEnum) {
-        if (isEmpty(o))
+        if (isEmpty(o)) {
             throw new ServiceException(exceptionEnum);
+        }
+    }
+
+    public static boolean notEmpty(Object o) {
+        return !isEmpty(o);
     }
 
     public static void notEmpty(Object o, ExceptionEnum exceptionEnum) {
-        if (notEmpty(o))
+        if (notEmpty(o)) {
             throw new ServiceException(exceptionEnum);
+        }
     }
 
     public static <T, R> R empty(T target, Function<T, R> trueFunc, Function<T, R> falseFunc) {

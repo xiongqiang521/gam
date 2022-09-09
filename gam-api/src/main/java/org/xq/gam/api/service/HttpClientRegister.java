@@ -3,6 +3,8 @@ package org.xq.gam.api.service;
 import org.xq.gam.api.service.entity.ClientDTO;
 
 /**
+ * 通过 HTTP 的方式注册到服务端
+ *
  * @author xiognqiang
  * 2022/7/29 15:16
  */

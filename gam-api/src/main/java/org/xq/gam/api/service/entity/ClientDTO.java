@@ -76,16 +76,18 @@ public final class ClientDTO implements Serializable {
         this.apis = apis;
     }
 
+
     @Override
     public String toString() {
-        return "ClientDTO{" +
-                "uuid=" + uuid +
-                ", ip=" + ip +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", service='" + service + '\'' +
-                ", describe='" + describe + '\'' +
-                ", apis=" + apis +
-                '}';
+        final StringBuffer sb = new StringBuffer("ClientDTO{");
+        sb.append("uuid=").append(uuid);
+        sb.append(", ip=").append(ip);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", type='").append(type).append('\'');
+        sb.append(", service='").append(service).append('\'');
+        sb.append(", describe='").append(describe).append('\'');
+        sb.append(", apis=").append(apis);
+        sb.append('}');
+        return sb.toString();
     }
 }
